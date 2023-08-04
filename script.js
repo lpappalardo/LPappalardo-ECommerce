@@ -477,6 +477,7 @@ const cagarModalCheckout = () => {
     formulario.setAttribute('class', 'form');
     formulario.setAttribute('id', 'form');
     formulario.setAttribute('method', 'post');
+    formulario.setAttribute('name', 'miForm');
     formulario.setAttribute('action', '#');
 
     let grupoNombre = document.createElement('div');
@@ -484,11 +485,12 @@ const cagarModalCheckout = () => {
     let labelNombre = document.createElement('label');
     labelNombre.setAttribute('for', 'input-nombre');
     labelNombre.setAttribute('class', 'label');
-    labelNombre.innerHTML = 'Nombre';
+    labelNombre.innerHTML = 'Nombre*';
     let inputNombre = document.createElement('input');
     inputNombre.setAttribute('type', 'text');
     inputNombre.setAttribute('class', 'input');
     inputNombre.setAttribute('id', 'input-nombre');
+    inputNombre.setAttribute('name', 'input-nombre');
     inputNombre.setAttribute('placeholder', 'Nombre');
     inputNombre.setAttribute('required', '');
     grupoNombre.append(labelNombre);
@@ -500,12 +502,14 @@ const cagarModalCheckout = () => {
     let labelApellido = document.createElement('label');
     labelApellido.setAttribute('for', 'input-apellido');
     labelApellido.setAttribute('class', 'label');
-    labelApellido.innerHTML = 'Apellido';
+    labelApellido.innerHTML = 'Apellido*';
     let inputApellido = document.createElement('input');
     inputApellido.setAttribute('type', 'text');
     inputApellido.setAttribute('class', 'input');
     inputApellido.setAttribute('id', 'input-apellido');
+    inputApellido.setAttribute('name', 'input-apellido');
     inputApellido.setAttribute('placeholder', 'Apellido');
+    inputApellido.setAttribute('required', '');
     grupoApellido.append(labelApellido);
     grupoApellido.append(inputApellido);
     formulario.append(grupoApellido);
@@ -515,12 +519,14 @@ const cagarModalCheckout = () => {
     let labelMail = document.createElement('label');
     labelMail.setAttribute('for', 'input-mail');
     labelMail.setAttribute('class', 'label');
-    labelMail.innerHTML = 'Mail';
+    labelMail.innerHTML = 'Mail*';
     let inputMail = document.createElement('input');
     inputMail.setAttribute('type', 'email');
     inputMail.setAttribute('class', 'input');
     inputMail.setAttribute('id', 'input-mail');
+    inputMail.setAttribute('name', 'input-mail');
     inputMail.setAttribute('placeholder', 'Mail');
+    inputMail.setAttribute('required', '');
     grupoMail.append(labelMail);
     grupoMail.append(inputMail);
     formulario.append(grupoMail);
@@ -530,12 +536,14 @@ const cagarModalCheckout = () => {
     let labelTelefono = document.createElement('label');
     labelTelefono.setAttribute('for', 'input-telefono');
     labelTelefono.setAttribute('class', 'label');
-    labelTelefono.innerHTML = 'Telefono';
+    labelTelefono.innerHTML = 'Telefono*';
     let inputTelefono = document.createElement('input');
     inputTelefono.setAttribute('type', 'text');
     inputTelefono.setAttribute('class', 'input');
     inputTelefono.setAttribute('id', 'input-telefono');
+    inputTelefono.setAttribute('name', 'input-telefono');
     inputTelefono.setAttribute('placeholder', 'Teléfono');
+    inputTelefono.setAttribute('required', '');
     grupoTelefono.append(labelTelefono);
     grupoTelefono.append(inputTelefono);
     formulario.append(grupoTelefono);
@@ -551,6 +559,8 @@ const cagarModalCheckout = () => {
     inputTitular.setAttribute('class', 'input');
     inputTitular.setAttribute('id', 'input-titular');
     inputTitular.setAttribute('placeholder', 'Titular');
+    inputTitular.setAttribute('name', 'input-titular');
+    inputTitular.setAttribute('required', '');
     grupoTitular.append(labelTitular);
     grupoTitular.append(inputTitular);
     formulario.append(grupoTitular);
@@ -566,6 +576,8 @@ const cagarModalCheckout = () => {
     inputNumero.setAttribute('class', 'input');
     inputNumero.setAttribute('id', 'input-numero');
     inputNumero.setAttribute('placeholder', '0000 0000 0000 0000');
+    inputNumero.setAttribute('name', 'input-numero');
+    inputNumero.setAttribute('required', '');
     grupoNumero.append(labelNumero);
     grupoNumero.append(inputNumero);
     formulario.append(grupoNumero);
@@ -584,11 +596,15 @@ const cagarModalCheckout = () => {
     inputMes.setAttribute('class', 'input');
     inputMes.setAttribute('id', 'input-mes');
     inputMes.setAttribute('placeholder', 'MM');
+    inputMes.setAttribute('name', 'input-mes');
+    inputMes.setAttribute('required', '');
     let inputAnio = document.createElement('input');
     inputAnio.setAttribute('type', 'text');
     inputAnio.setAttribute('class', 'input');
     inputAnio.setAttribute('id', 'input-anio');
     inputAnio.setAttribute('placeholder', 'AA');
+    inputAnio.setAttribute('name', 'input-anio');
+    inputAnio.setAttribute('required', '');
     inputFecha.append(inputMes);
     inputFecha.append(inputAnio);
 
@@ -607,6 +623,8 @@ const cagarModalCheckout = () => {
     inputCVC.setAttribute('class', 'input');
     inputCVC.setAttribute('id', 'input-cvc');
     inputCVC.setAttribute('placeholder', '123');
+    inputCVC.setAttribute('name', 'input-cvc');
+    inputCVC.setAttribute('required', '');
     grupoCVC.append(labelCVC);
     grupoCVC.append(inputCVC);
     formulario.append(grupoCVC);
@@ -923,30 +941,70 @@ if (productosEnCarritoLS) {
 
 // Checkout
 
+
+function validarCheckout() {
+    let nombForm = document.forms["miForm"]["input-nombre"].value;
+    let apellForm = document.forms["miForm"]["input-apellido"].value;
+    let telfForm = document.forms["miForm"]["input-telefono"].value; 
+    let mailForm = document.forms["miForm"]["input-mail"].value;
+    
+    let tituForm = document.forms["miForm"]["input-titular"].value;
+    let numForm = document.forms["miForm"]["input-numero"].value;
+    let mesForm = document.forms["miForm"]["input-mes"].value;
+    let anioForm = document.forms["miForm"]["input-anio"].value;
+    let cvcForm = document.forms["miForm"]["input-cvc"].value;
+
+    if (nombForm == "" || nombForm == null) {
+      return false;
+    } else if (apellForm == "" || apellForm == null) {
+        return false;
+    } else if (telfForm == "" || telfForm == null) {
+        return false;
+    } else if (mailForm == "" || mailForm == null) {
+        return false;
+    } else if (tituForm == "" || tituForm == null) {
+        return false;
+    } else if (numForm == "" || numForm == null) {
+        return false;
+    } else if (mesForm == "" || mesForm == null) {
+        return false;
+    } else if (anioForm == "" || anioForm == null) {
+        return false;
+    } else if (cvcForm == "" || cvcForm == null) {
+        return false;
+    } else {
+        return true;
+    }
+  }
+
+
+
+
 function finalizarCompra() {
 
-    
-    contenido.replaceChildren();
-    let mensaje = document.createElement('div');
-    let tituloMensaje = document.createElement('h2');
-    tituloMensaje.innerHTML = 'Felicidades, la compra ha sido realizada con éxito.';
-    mensaje.append(tituloMensaje);
-    let contenidoMensaje = document.createElement('p');
-    contenidoMensaje.innerHTML = 'Hemos envíado un email a tu casilla de correo con los datos de la compra.';
-    mensaje.append(contenidoMensaje);
-    let esperaMensaje = document.createElement('p');
-    esperaMensaje.innerHTML = 'Por favor, espera unos segundos para ser redireccionado al inicio.';
-    mensaje.append(esperaMensaje);
-    let contadorSaludo = document.createElement('span');
-    contadorSaludo.setAttribute('id', 'tiempo-saludo');
-    contadorSaludo.innerHTML = '';
-    mensaje.append(contadorSaludo);
-    mensaje.setAttribute('class', 'mensaje-checkout' );
-    contenido.append(mensaje);
-    
-    tiempoSaludo = 5;
-    
-    actualizarSaludo();
+    if(validarCheckout()){
+        contenido.replaceChildren();
+        let mensaje = document.createElement('div');
+        let tituloMensaje = document.createElement('h2');
+        tituloMensaje.innerHTML = 'Felicidades, la compra ha sido realizada con éxito.';
+        mensaje.append(tituloMensaje);
+        let contenidoMensaje = document.createElement('p');
+        contenidoMensaje.innerHTML = 'Hemos envíado un email a tu casilla de correo con los datos de la compra.';
+        mensaje.append(contenidoMensaje);
+        let esperaMensaje = document.createElement('p');
+        esperaMensaje.innerHTML = 'Por favor, espera unos segundos para ser redireccionado al inicio.';
+        mensaje.append(esperaMensaje);
+        let contadorSaludo = document.createElement('span');
+        contadorSaludo.setAttribute('id', 'tiempo-saludo');
+        contadorSaludo.innerHTML = '';
+        mensaje.append(contadorSaludo);
+        mensaje.setAttribute('class', 'mensaje-checkout' );
+        contenido.append(mensaje);
+        
+        tiempoSaludo = 5;
+        
+        actualizarSaludo();
+    }
 }
 
 var tiempoSaludo = 5;
